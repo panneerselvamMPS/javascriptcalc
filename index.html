@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="calculator">
+      <div class="display"></div>
+      <div class="buttons">
+        <button class="btn btn-warning clear" style="color: red;">C</button>
+        <button class="btn btn-danger backspace">&lt;--</button>
+        <button class="btn btn-primary operator">%</button>
+        <button class="btn btn-primary operator">*</button>
+        <button class="btn btn-secondary number">7</button>
+        <button class="btn btn-secondary number">8</button>
+        <button class="btn btn-secondary number">9</button>
+        <button class="btn btn-primary operator">/</button>
+        <button class="btn btn-secondary number">4</button>
+        <button class="btn btn-secondary number">5</button>
+        <button class="btn btn-secondary number">6</button>
+        <button class="btn btn-primary operator">-</button>
+        <button class="btn btn-secondary number">1</button>
+        <button class="btn btn-secondary number">2</button>
+        <button class="btn btn-secondary number">3</button>
+        <button class="btn btn-primary operator">+</button>
+        <button class="btn btn-secondary number">0</button>
+        <button class="btn btn-info double-zero">00</button>
+        <button class="btn btn-info decimal">.</button>
+        <button class="btn btn-success equal" style="color: white; background-color: green;">=</button>
+</div>
+    </div>
+  </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const display = document.querySelector('.display');
+    display.textContent = '0'; 
+    const buttons = document.querySelectorAll('.Number, .Operator, .Clear, .Equal, .Backspace, .Decimal, .Double-zero');
+  
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (button.classList.contains('clear')) {
+          display.textContent = '0'; // 
+        } else if (button.classList.contains('equal')) {
+          try {
+            display.textContent = eval(display.textContent);
+          } catch (error) {
+            display.textContent = 'Error';
+          }
+        } else if (button.classList.contains('backspace')) {
+          display.textContent = display.textContent.slice(0, -1);
+          if (display.textContent === '') {
+            display.textContent = '0'; 
+          }
+        } else if (button.classList.contains('decimal')) {
+          if (!display.textContent.includes('.')) {
+            display.textContent += '.';
+          }
+        } else if (button.classList.contains('double-zero')) {
+          if (display.textContent !== '0' && !display.textContent.includes('.')) {
+            display.textContent += '00';
+          }
+        } else {
+          if (display.textContent === '0') {
+            display.textContent = ''; 
+          }
+          display.textContent += button.textContent;
+        }
+      });
+    });
+  
+    document.addEventListener('value', event => {
+      const key = event.value;
+      const allowedKeys = /[0-9+\-*\/%=]|Enter|Backspace|Escape|\./;
+      if (!allowedKeys.test(value)) {
+        event.preventDefault();
+        alert('Only Numbers, Operators, Backspace, and Decimal point are allowed');
+      }
+    });
+});
+</script>
+
+</body>
+</html>
